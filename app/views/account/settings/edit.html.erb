@@ -1,0 +1,121 @@
+<!-- Breadcrumb Start -->
+<div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+  <h2 class="text-title-md2 font-bold text-black dark:text-white">
+    Settings Page
+  </h2>
+  <nav>
+    <ol class="flex items-center gap-2">
+      <li>
+        <a class="font-medium" href="index.html">Dashboard /</a>
+      </li>
+      <li class="font-medium text-primary">Settings</li>
+    </ol>
+  </nav>
+</div>
+<!-- Breadcrumb End -->
+<!-- ====== Settings Section Start -->
+<div class="grid grid-cols-5 gap-8">
+  <div class="col-span-5 xl:col-span-3">
+    <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+      <div class="border-b border-stroke py-4 px-7 dark:border-strokedark">
+        <h3 class="font-medium text-black dark:text-white">
+          Personal Information
+        </h3>
+      </div>
+      <div class="p-7">
+        <%= form_with(model: @user, url: account_settings_path) do |form| %>
+          <div class="mb-5.5">
+            <label class="mb-3 block text-sm font-medium text-black dark:text-white" for="Username">Username</label>
+            <%= form.text_field :username, value: @user.username, class:"w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" %>
+          </div>
+          <div class="flex justify-end gap-4.5">
+            <button class="flex justify-center rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 dark:border-strokedark dark:text-white" type="submit">
+              Cancel
+            </button>
+            <%= form.submit "Save", class:"flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-90" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="col-span-5 xl:col-span-2">
+    <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+      <div class="border-b border-stroke py-4 px-7 dark:border-strokedark">
+        <h3 class="font-medium text-black dark:text-white">
+          Your Photo
+        </h3>
+      </div>
+      <div class="p-7">
+        <form action="#">
+          <div class="mb-4 flex items-center gap-3">
+            <div class="h-14 w-14 rounded-full">
+              <% if current_user.avatar.attached? %>
+              <%= image_tag rails_blob_path(current_user.avatar, only_path: true) %>
+              <% else %>
+              <a class="relative flex h-12 w-12 items-center justify-center rounded-full border-[0.5px] border-stroke bg-gray hover:text-primary dark:border-strokedark dark:bg-meta-4 dark:text-white" href="#" @click.prevent="dropdownOpen = ! dropdownOpen; notifying = false">
+                <span :class="!notifying &amp;&amp; 'hidden'" class="absolute -top-0.5 right-0 z-1 h-2 w-2 rounded-full bg-meta-1 hidden">
+                  <span class="absolute -z-1 inline-flex h-full w-full animate-ping rounded-full bg-meta-1 opacity-75"></span>
+                </span>
+                <svg class="fill-current" width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g clip-path="url(#clip0_608_18042)">
+                    <path d="M12.2493 7.02488C12.6567 7.02488 12.9869 6.69465 12.9869 6.28728C12.9869 5.87992 12.6567 5.54968 12.2493 5.54968C11.842 5.54968 11.5117 5.87992 11.5117 6.28728C11.5117 6.69465 11.842 7.02488 12.2493 7.02488Z" fill=""></path>
+                    <path d="M16.7181 7.02488C17.1254 7.02488 17.4557 6.69465 17.4557 6.28728C17.4557 5.87992 17.1254 5.54968 16.7181 5.54968C16.3107 5.54968 15.9805 5.87992 15.9805 6.28728C15.9805 6.69465 16.3107 7.02488 16.7181 7.02488Z" fill=""></path>
+                    <path d="M24.3973 8.67366C24.0502 8.67366 23.7031 8.76044 23.356 8.8906L23.2692 8.63027C22.7051 6.89474 21.6638 5.41954 20.3188 4.37822L22.4014 2.25219C22.7051 1.94847 22.7051 1.4712 22.4014 1.16749C22.0977 0.863768 21.6204 0.863768 21.3167 1.16749L19.1473 3.38029C19.1039 3.42368 19.1039 3.46706 19.0605 3.46706C17.7589 2.72946 16.2403 2.33897 14.6349 2.33897C13.0729 2.33897 11.5977 2.72946 10.2961 3.42368C10.2527 3.42368 10.2527 3.38029 10.2093 3.38029L8.0399 1.16749C7.73618 0.863768 7.25891 0.863768 6.95519 1.16749C6.65147 1.4712 6.65147 1.94847 6.95519 2.25219L8.99444 4.29144C7.60601 5.37615 6.5647 6.85135 6.00065 8.58688L5.95726 8.71705C5.61015 8.54349 5.21966 8.45672 4.78578 8.45672C3.31057 8.45672 2.0957 9.67159 2.0957 11.1468V16.0931C2.0957 17.5683 3.31057 18.7831 4.78578 18.7831C5.21966 18.7831 5.61015 18.6964 5.95726 18.5228V21.6901C5.95726 22.2108 6.34775 22.6447 6.9118 22.6447H7.69279V25.812C7.69279 27.2872 8.90766 28.5021 10.3829 28.5021C11.8581 28.5021 13.0729 27.2872 13.0729 25.812V22.6447H15.763V25.812C15.763 27.2872 16.9779 28.5021 18.4531 28.5021C19.9283 28.5021 21.1432 27.2872 21.1432 25.812V22.6447H22.2279C22.7485 22.6447 23.1824 22.2542 23.1824 21.6901V18.6964C23.5295 18.8699 23.92 18.9567 24.3539 18.9567C25.8291 18.9567 27.044 17.7418 27.044 16.2666V11.3637C27.0874 9.88853 25.8725 8.67366 24.3973 8.67366ZM14.6349 3.85756C17.5419 3.85756 20.1886 5.50631 21.4469 8.06622H7.86634C9.08122 5.50631 11.6845 3.85756 14.6349 3.85756ZM4.78578 17.3079C4.13495 17.3079 3.61429 16.7873 3.61429 16.1364V11.1902C3.61429 10.5394 4.13495 10.0187 4.78578 10.0187C5.4366 10.0187 5.95726 10.5394 5.95726 11.1902V16.1364C5.95726 16.7439 5.4366 17.3079 4.78578 17.3079ZM11.5977 25.7686C11.5977 26.4195 11.0771 26.9401 10.4263 26.9401C9.77543 26.9401 9.25477 26.4195 9.25477 25.7686V22.6013H11.5977V25.7686ZM19.668 25.7686C19.668 26.4195 19.1473 26.9401 18.4965 26.9401C17.8456 26.9401 17.325 26.4195 17.325 25.7686V22.6013H19.668V25.7686ZM21.7072 21.1261H21.1865H20.3622H19.9717H15.8064H13.1163H8.99444H8.82089H7.69279H7.47585V16.0931V11.1902V9.6282H21.6638V11.4071V16.3534V21.1261H21.7072ZM25.5688 16.31C25.5688 16.9608 25.0481 17.4815 24.3973 17.4815C23.7465 17.4815 23.2258 16.9608 23.2258 16.31V11.3637C23.2258 10.7129 23.7465 10.1922 24.3973 10.1922C25.0481 10.1922 25.5688 10.7129 25.5688 11.3637V16.31Z" fill=""></path>
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_608_18042">
+                      <rect width="27.7685" height="27.7685" fill="white" transform="translate(0.707031 0.820312)"></rect>
+                    </clipPath>
+                  </defs>
+                </svg>
+              </a>
+              <% end %>
+            </div>
+            <div>
+              <span class="mb-1.5 font-medium text-black dark:text-white">Edit your photo</span>
+              <span class="flex gap-2.5">
+                <button class="text-sm font-medium hover:text-primary">
+                  Delete
+                </button>
+                <button class="text-sm font-medium hover:text-primary">
+                  Update
+                </button>
+              </span>
+            </div>
+          </div>
+          <div id="FileUpload" class="relative mb-5.5 block w-full cursor-pointer appearance-none rounded border-2 border-dashed border-primary bg-gray py-4 px-4 dark:bg-meta-4 sm:py-7.5">
+            <input type="file" accept="image/*" class="absolute inset-0 z-50 m-0 h-full w-full cursor-pointer p-0 opacity-0 outline-none" />
+            <div class="flex flex-col items-center justify-center space-y-3">
+              <span class="flex h-10 w-10 items-center justify-center rounded-full border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M1.99967 9.33337C2.36786 9.33337 2.66634 9.63185 2.66634 10V12.6667C2.66634 12.8435 2.73658 13.0131 2.8616 13.1381C2.98663 13.2631 3.1562 13.3334 3.33301 13.3334H12.6663C12.8431 13.3334 13.0127 13.2631 13.1377 13.1381C13.2628 13.0131 13.333 12.8435 13.333 12.6667V10C13.333 9.63185 13.6315 9.33337 13.9997 9.33337C14.3679 9.33337 14.6663 9.63185 14.6663 10V12.6667C14.6663 13.1971 14.4556 13.7058 14.0806 14.0809C13.7055 14.456 13.1968 14.6667 12.6663 14.6667H3.33301C2.80257 14.6667 2.29387 14.456 1.91879 14.0809C1.54372 13.7058 1.33301 13.1971 1.33301 12.6667V10C1.33301 9.63185 1.63148 9.33337 1.99967 9.33337Z" fill="#3C50E0" />
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M7.5286 1.52864C7.78894 1.26829 8.21106 1.26829 8.4714 1.52864L11.8047 4.86197C12.0651 5.12232 12.0651 5.54443 11.8047 5.80478C11.5444 6.06513 11.1223 6.06513 10.8619 5.80478L8 2.94285L5.13807 5.80478C4.87772 6.06513 4.45561 6.06513 4.19526 5.80478C3.93491 5.54443 3.93491 5.12232 4.19526 4.86197L7.5286 1.52864Z" fill="#3C50E0" />
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M7.99967 1.33337C8.36786 1.33337 8.66634 1.63185 8.66634 2.00004V10C8.66634 10.3682 8.36786 10.6667 7.99967 10.6667C7.63148 10.6667 7.33301 10.3682 7.33301 10V2.00004C7.33301 1.63185 7.63148 1.33337 7.99967 1.33337Z" fill="#3C50E0" />
+                </svg>
+              </span>
+              <p class="text-sm font-medium">
+                <span class="text-primary">Click to upload</span>
+                or drag and drop
+              </p>
+              <p class="mt-1.5 text-sm font-medium">
+                SVG, PNG, JPG or GIF
+              </p>
+              <p class="text-sm font-medium">
+                (max, 800 X 800px)
+              </p>
+            </div>
+          </div>
+          <div class="flex justify-end gap-4.5">
+            <button class="flex justify-center rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 dark:border-strokedark dark:text-white" type="submit">
+              Cancel
+            </button>
+            <button class="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-90" type="submit">
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ====== Settings Section End -->
