@@ -35,3 +35,10 @@ en:
       update:
         failure: Error
         success: Your settings have been updated
+    user_avatars:
+      destroy:
+        failure: Error detach avatar
+        success: Your avatar has been deleted
+      update:
+        failure: Error upload
+        success: Your new avatar has been saved

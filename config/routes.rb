@@ -51,6 +51,7 @@ Rails.application.routes.draw do
 
   namespace :account  do
     resource :settings, only: [:edit, :update]
+    resource :user_avatars, only: [ :edit, :update, :destroy ]
   end
 
   ####

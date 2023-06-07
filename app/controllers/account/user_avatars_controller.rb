@@ -1,22 +1,32 @@
 # frozen_string_literal: true
 
 module Account
-  class SettingsController < AccountController
+  class UserAvatarsController < AccountController
 
     def edit
-      load_user
+      byebu
     end
 
     def update
       load_user
-      build_user
+      build_avatar
+      persist_user
+    end
+
+    def destroy
+      load_user
+      detach_avatar
       persist_user
     end
 
     private
 
-    def build_user
-      @user.assign_attributes(user_enhanced_params)
+    def build_avatar
+      @user.assign_attributes(user_params)
+    end
+
+    def detach_avatar
+      @user.avatar.detach
     end
 
     def load_user
@@ -33,7 +43,7 @@ module Account
 
     def render_user
       set_notice_message
-      redirect_to check_inbox_path
+      redirect_to edit_account_settings_path
     end
 
     def render_user_error
@@ -44,11 +54,7 @@ module Account
     def save_user = @user.save
 
     def user_params
-      params.require(:user).permit(:username)
-    end
-
-    def user_enhanced_params
-      user_params
+      params.require(:user).permit(:avatar)
     end
 
   end
